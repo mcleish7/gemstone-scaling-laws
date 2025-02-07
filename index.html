@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><text y=%22.9em%22 font-size=%2216%22>💎</text></svg>">
+  <script src="https://kit.fontawesome.com/9b26e10634.js" crossorigin="anonymous"></script>
+  <meta charset="utf-8">
+  <meta name="description" content="Gemstones: A Model Suite for Multi-Faceted Scaling Laws">
+  <meta name="keywords" content="Scaling Laws, Gemstones, LLM Language Model, GPT">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gemstones: A Model Suite for Multi-Faceted Scaling Laws</title>
+
+  <!-- <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"rel="stylesheet"> -->
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Product+Sans|Castoro"rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <!-- <link rel="stylesheet" href="./static/css/fontawesome.all.min.css"> -->
+  <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+          tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+      });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS_CHTML"></script>
+  <link rel="icon" href="./favicon.ico?">
+
+</head>
+
+<body>
+
+  <section class="hero" style="background-color: #e21833;"> 
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <h1 class="title is-1 publication-title" style="color: white;">Gemstones 💎: A Model Suite for Multi-Faceted Scaling Laws</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block" style="color: white;">
+              <a target="_blank" href="https://mcleish7.github.io/" style = "color:blanchedalmond !important;" >Sean McLeish</a><sup>♠️</sup>&nbsp;&nbsp;&nbsp;
+              <a target="_blank" href="https://www.cs.umd.edu/people/jkirchen" style = "color:blanchedalmond !important;">John Kirchenbauer</a><sup>♠️</sup>&nbsp;&nbsp;&nbsp;
+              David Yu Miller<sup>♠️</sup>&nbsp;&nbsp;&nbsp;
+              <a target="_blank" href="https://siddharth9820.github.io/" style = "color:blanchedalmond !important;">Siddharth Singh</a><sup>♠️</sup>&nbsp;&nbsp;&nbsp;
+              <a target="_blank" href="https://www.cs.umd.edu/~bhatele/" style = "color:blanchedalmond !important;">Abhinav Bhatele</a><sup>♠️</sup>&nbsp;&nbsp;&nbsp;
+              <a target="_blank" href="https://goldblum.github.io/" style = "color:blanchedalmond !important;">Micah Goldblum</a><sup>♣</sup>&nbsp;&nbsp;&nbsp;
+              <a target="_blank" href="https://kiddyboots216.github.io/" style = "color:blanchedalmond !important;">Ashwinee Panda</a><sup>♠️</sup>&nbsp;&nbsp;&nbsp;<br>
+              <a target="_blank" href="https://www.cs.umd.edu/~tomg/" style = "color:blanchedalmond !important;">Tom Goldstein</a><sup>♠️</sup>&nbsp;&nbsp;&nbsp;
+              <br />♠️ University of Maryland&nbsp;&nbsp;&nbsp; ♣ Columbia University
+              <!-- <span class="brmod" style="color:rgb(183, 0, 0)"><b>CoRL 2022</b></span> -->
+              <!-- <b style="color:rgb(183, 0, 0)">Best Systems Paper Award</b> -->
+
+            </span>
+          </div>
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- arXiV Link. TODO-->
+              <span class="link-block">
+                <a target="_blank" href="http://arxiv.org/" 
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- GitHub Link. TODO -->
+              <span class="link-block">
+                <a target="_blank" href="https://github.com/mcleish7/gemstone-scaling-laws"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>GitHub</span>
+                </a>
+              </span>
+              <!-- Colleciton link. TODO -->
+              <span class="link-block">
+                <a href="https://huggingface.co/collections/tomg-group-umd/gemstone-models-679408ee3f19f1d4d00e8b10" target="_blank"
+                class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      🤗
+                    </span>
+                    <span>Models</span>
+                </a>
+              </span>
+            </div>
+    </div>
+  </section>
+  
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+                <h1 class="title is-3">Abstract</h1>
+                <div class="content active has-text-justified">
+                    <p>
+                      Scaling laws are typically fit using a family of models with a narrow range of frozen hyper-parameter choices. 
+                      In this work we study scaling laws using a wide range of architecture and hyper-parameter choices, and highlight their impact on resulting prescriptions.
+                      As a primary artifact of our research, we release the Gemstones: the most comprehensive open-source scaling law dataset to date, consisting of over 4000 checkpoints from transformers with up to 2 billion parameters; these models have been trained with different learning rates, cooldown schedules, and architectural shapes. Our checkpoints enable more complex studies of scaling, such as a law that predicts language modeling performance as a function of model width and depth.
+                      By examining the various facets of our model suite, we find that the prescriptions of scaling laws can be highly sensitive to the experimental design process and the specific model checkpoints used during fitting.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h1 class="title is-1">The Gemstones</h1>
+          <div class="content active has-text-justified">
+            <p>
+              Our 22 Gemstone models range from 50M to 2B parameters, spanning 11 widths from 256 to 3072 and 18 depths from 3 to 80. 
+              For the main set of training runs, we train each model for 350B tokens of Dolma data with a context length of 2048.
+              We open source checkpoints for all models at 2 billion token intervals.
+              We also perform two ablations, over cooldown and optimal learning rate, meaning there are over 4,000 checkpoints in total.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero">
+      <div class="hero-body">
+          <div class="container is-max-desktop">
+              <div class="columns is-centered">
+                  <div class="column is-full">
+                    <div class="item has-text-centered">
+                        <img src="resources/model_search_space_with_commerical_models.png" alt="sampling" style="width:450px; height:auto;"/>
+                        <h2 class="subtitle">
+                            Figure 1: <b>Distribution of prior scaling law models, industry models, and our models in terms of width and depth.</b> Prior work (purple and green) and industry models (blue and orange) mostly lie on a fixed width-depth line.
+                            If we want to prescribe the optimal width-depth ratio, we need to select models with different widths and depths (our models, black).
+                        </h2>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h1 class="title is-1">Approach 1</h1>
+          <div class="content active has-text-justified">
+            <p>
+              We fit a lower convex hull to our loss curves. This hull is only supported by a sparse set of optimal models.
+              This naturally excludes sub-optimal models that lie above the convex hull of optimality, and makes the resulting scaling law far more robust to the choice of model sampling.
+              We see that the tokens per parameter prescription of our approach 1 fitting is also close to constant, like Chinchilla, but slightly higher, suggesting more tokens should be used per parameter in the model.
+              We also record the average time per step to create a GPU Hours axis which can be used to fit time optimal
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero">
+    <div class="hero-body">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered">
+                <div class="column is-full">
+                  <div class="item has-text-centered">
+                      <img src="resources/figure_2_gpu_hours.png" alt="sampling" style="width:900px; height:auto;"/>
+                      <h2 class="subtitle">
+                          Figure 2: <b>Approach 1 prescriptions.</b> Row one: Validation loss over FLOPs (left) and GPU hours (right). We use Approach 1 to find the optimal points on the convex hull in each setting, marked with <b>black</b> crosses. Row two: We fit a line to the tokens per parameter of empirically optimal models and find a slightly higher, but still constant, tokens per parameter prescription than Chinchilla. 
+                          Chinchilla's Approach 1 creates 250 logarithmically-spaced FLOPs bins per order of magnitude, and in <b>red</b> we plot the minimizers over these bins, and the scaling law fitted to these minimizers. Clearly, their Approach 1 is not well-suited for our data, and our convex hull approach is better when we select fewer models to fit our law on.
+                      </h2>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h1 class="title is-1">Approach 3</h1>
+          <div class="content active has-text-justified">
+            <p>
+              We consider a perturbation of the standard scaling law with additional terms to account for the impact of model width and depth:
+              <br>
+              $L(width (w),depth (d),parameters (p),tokens (T)) = \frac{A}{w^{\alpha}}+\frac{B}{d^{\beta}}+\frac{C}{p^{\gamma}}+\frac{D}{T^{\zeta}}+\varepsilon$
+              <br>
+              this allows us to optimize over the width and depth terms when obtaining prescriptions.
+              We see the prescribed width-depth ratio increases slowly as FLOPs is quickly increased, something observed in prior work.
+              In Figure 3 (right), we see that the optimal tokens per parameter follows more closely to the prescription found by Kaplan; the prescribed tokens per parameter decreases as the number of FLOPs increases.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero">
+    <div class="hero-body">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered">
+                <div class="column is-full">
+                  <div class="item has-text-centered">
+                      <img src="resources/approach_3_brute_force_hot_100b+_width_depth_params_FLOPs.png" alt="sampling" style="width:9000px; height:auto;"/>
+                      <h2 class="subtitle">
+                          Figure 3: <b>Approach 3 laws with the parametrization shown below including width and depth as terms.</b> We see the prescribed optimal width-depth ratio increases with the FLOPs (left) budget and the optimal tokens per parameter decreases as the FLOPs budget increases (right). 
+                          We see slight bumpiness in the lines due to the integer constraints we enforce on the attention heads.
+                      </h2>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+
+  <section class="section" id="BibTeX">
+    <div class="container active is-max-desktop content">
+        <h2 class="title">Reference</h2>
+        Please kindly cite our paper if you use our code or results:
+        <pre>
+          <code>@misc{mcleish2025gemstones,
+            title={Gemstones: A Model Suite for Multi-Faceted Scaling Laws},
+            author={Sean McLeish and John Kirchenbauer and David Yu Miller and Siddharth Singh and Abhinav Bhatele and Micah Goldblum and Ashwinee Panda and Tom Goldstein},
+            year={2025},
+            eprint={2502.},
+            archivePrefix={arXiv},
+            primaryClass={cs.CL},
+            url={},
+          }
+          </code>
+        </pre>
+    </div>
+  </section>
+
+<footer class="footer" style="background-color: #e21833;">
+  <div class = "columns  is-centered">
+    <p style="color: white;">
+      <bold>University of Maryland</bold> &copy; 2025. All rights reserved.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
