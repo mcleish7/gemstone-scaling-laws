@@ -1,0 +1,19 @@
+# basic
+numpy==1.23.4
+pandas==2.2.3
+tqdm
+
+# modeling
+scipy==1.13.0
+scikit_learn==1.1.3
+
+# plotting
+matplotlib==3.6.2
+altair
+wandb
+pdflatex
+seaborn
+
+swifter==1.4.0
+adjustText
+transformers==4.48.1
