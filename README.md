@@ -2,7 +2,7 @@
 A joint project by: Sean McLeish, John Kirchenbauer, David Yu Miller, Siddharth Singh, Abhinav Bhatele, Micah Goldblum, Ashwinee Panda and Tom Goldstein.
 
 <p align="center">
-<a target="_blank" href="https://arxiv.org/">
+<a target="_blank" href="https://arxiv.org/abs/2502.06857">
 <img style="height:22pt" src="https://img.shields.io/badge/-Paper-B31B1B?style=flat&logo=arxiv">
 <a target="_blank" href="https://mcleish7.github.io/gemstone-scaling-laws/">
 <img style="height:22pt" src="https://img.shields.io/badge/-🌐%20Website-1E8BC3?style=flat">
@@ -17,8 +17,9 @@ To cite our work, please use this bibtex.
 @article{mcleish2024gemstones
     title={Gemstones: A Model Suite for Multi-Faceted Scaling Laws}, 
     author={Sean McLeish and John Kirchenbauer and David Yu Miller and Siddharth Singh and Abhinav Bhatele and Micah Goldblum and Ashwinee Panda and Tom Goldstein},
-    journal={arXiv preprint arXiv:2502.},
-    year={2025}
+    journal={arXiv preprint arXiv:2502.06857},
+    year={2025},
+    url={https://arxiv.org/abs/2502.06857},
 }
 ```
 
