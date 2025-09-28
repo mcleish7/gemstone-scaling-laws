@@ -60,7 +60,6 @@
           </div>
           <div class="column has-text-centered">
             <div class="publication-links">
-              <!-- arXiV Link. TODO-->
               <span class="link-block">
                 <a target="_blank" href="http://arxiv.org/abs/2502.06857" 
                    class="external-link button is-normal is-rounded is-dark">
@@ -70,7 +69,6 @@
                   <span>arXiv</span>
                 </a>
               </span>
-              <!-- GitHub Link. TODO -->
               <span class="link-block">
                 <a target="_blank" href="https://github.com/mcleish7/gemstone-scaling-laws"
                    class="external-link button is-normal is-rounded is-dark">
@@ -80,7 +78,6 @@
                   <span>GitHub</span>
                 </a>
               </span>
-              <!-- Colleciton link. TODO -->
               <span class="link-block">
                 <a href="https://huggingface.co/collections/tomg-group-umd/gemstone-models-679408ee3f19f1d4d00e8b10" target="_blank"
                 class="external-link button is-normal is-rounded is-dark">
@@ -88,6 +85,16 @@
                       🤗
                     </span>
                     <span>Models</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://tinyurl.com/gemstones-colab" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <img src="https://colab.research.google.com/img/colab_favicon_256px.png" 
+                        alt="Colab" style="height:1em; width:auto;">
+                  </span>
+                  <span>Colab</span>
                 </a>
               </span>
             </div>
@@ -102,9 +109,10 @@
                 <div class="content active has-text-justified">
                     <p>
                       Scaling laws are typically fit using a family of models with a narrow range of frozen hyper-parameter choices. 
-                      In this work we study scaling laws using a wide range of architecture and hyper-parameter choices, and highlight their impact on resulting prescriptions.
-                      As a primary artifact of our research, we release the Gemstones: the most comprehensive open-source scaling law dataset to date, consisting of over 4000 checkpoints from transformers with up to 2 billion parameters; these models have been trained with different learning rates, cooldown schedules, and architectural shapes. Our checkpoints enable more complex studies of scaling, such as a law that predicts language modeling performance as a function of model width and depth.
-                      By examining the various facets of our model suite, we find that the prescriptions of scaling laws can be highly sensitive to the experimental design process and the specific model checkpoints used during fitting.
+                      In this work we study scaling laws using multiple architectural shapes and hyperparameter choices, highlighting their impact on resulting prescriptions.
+                      As a primary artifact of our research, we release the Gemstones: an open-source scaling law dataset, consisting of over 4000 checkpoints from transformers with up to 2 billion parameters and diverse architectural shapes; including ablations over learning rate and cooldown.
+                      Our checkpoints enable more complex studies of scaling, such as analyzing the relationship between width and depth.
+                      By examining our model suite, we find that the prescriptions of scaling laws can be highly sensitive to the experimental design process and the specific model checkpoints used during fitting.
                     </p>
                 </div>
             </div>
@@ -188,16 +196,12 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
-          <h1 class="title is-1">Approach 3</h1>
+          <h1 class="title is-1">Buried Treasure: Unearthing Value in Depth</h1>
           <div class="content active has-text-justified">
             <p>
-              We consider a perturbation of the standard scaling law with additional terms to account for the impact of model width and depth:
-              <br>
-              $L(width (w),depth (d),parameters (p),tokens (T)) = \frac{A}{w^{\alpha}}+\frac{B}{d^{\beta}}+\frac{C}{p^{\gamma}}+\frac{D}{T^{\zeta}}+\varepsilon$
-              <br>
-              this allows us to optimize over the width and depth terms when obtaining prescriptions.
-              We see the prescribed width-depth ratio increases slowly as FLOPs is quickly increased, something observed in prior work.
-              In Figure 3 (right), we see that the optimal tokens per parameter follows more closely to the prescription found by Kaplan; the prescribed tokens per parameter decreases as the number of FLOPs increases.
+              We plot the average benchmark accuracy (length normalized) over the FineWeb benchmarks for the Gemstones at 200, 250, 300 and 350 billion tokens.
+              We see that the 1B scale models ($1280 \times 36$, $2560\times 8$, and $1792\times 18$) yield increasing accuracy with depth when constrained to approximately the same FLOP budget (vertically aligned points). 
+              Recent work suggests deeper layers in networks "do less" than shallower ones and can be pruned away, but our downstream evaluations suggest that there are also advantages to additional model depth.
             </p>
           </div>
         </div>
@@ -211,10 +215,9 @@
             <div class="columns is-centered">
                 <div class="column is-full">
                   <div class="item has-text-centered">
-                      <img src="resources/approach_3_brute_force_hot_100b+_width_depth_params_FLOPs.png" alt="sampling" style="width:9000px; height:auto;"/>
+                      <img src="resources/benchmarks.png" alt="sampling" style="width:9000px; height:auto;"/>
                       <h2 class="subtitle">
-                          Figure 3: <b>Approach 3 laws with the parametrization shown below including width and depth as terms.</b> We see the prescribed optimal width-depth ratio increases with the FLOPs (left) budget and the optimal tokens per parameter decreases as the FLOPs budget increases (right). 
-                          We see slight bumpiness in the lines due to the integer constraints we enforce on the attention heads.
+                          Figure 3: <b>Benchmark Performance Increases with Depth.</b> We benchmark all models using the 200, 250, 300 and 350 billion token checkpoints. Models show increasing accuracy with depth when constrained to approximately the same FLOP budget (vertically aligned points). This relationship between depth and accuracy can also be observed in many individual benchmarks.
                       </h2>
                   </div>
                 </div>
@@ -227,16 +230,14 @@
     <div class="container active is-max-desktop content">
         <h2 class="title">Reference</h2>
         Please kindly cite our paper if you use our code or results:
-        <pre>
-          <code>@article{mcleish2024gemstones
-                    title={Gemstones: A Model Suite for Multi-Faceted Scaling Laws}, 
-                    author={Sean McLeish and John Kirchenbauer and David Yu Miller and Siddharth Singh and Abhinav Bhatele and Micah Goldblum and Ashwinee Panda and Tom Goldstein},
-                    journal={arXiv preprint arXiv:2502.06857},
-                    year={2025},
-                    url={https://arxiv.org/abs/2502.06857},
-                }
-          </code>
-        </pre>
+    <pre><code>@article{mcleish2024gemstones,
+  title={Gemstones: A Model Suite for Multi-Faceted Scaling Laws}, 
+  author={Sean McLeish and John Kirchenbauer and David Yu Miller and Siddharth Singh and Abhinav Bhatele and Micah Goldblum and Ashwinee Panda and Tom Goldstein},
+  journal={arXiv preprint arXiv:2502.06857},
+  year={2025},
+  url={https://arxiv.org/abs/2502.06857},
+}
+</code></pre>
     </div>
   </section>
 
