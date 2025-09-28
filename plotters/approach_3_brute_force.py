@@ -236,6 +236,10 @@ def plotting(
         if axes is None:
             continue
         if not no_wd_ratio:
+            if not loo and x_axis_col == "FLOPs":
+                plot_industrial(
+                    axes[0], "wd_ratio", plt, no_qwen=False, s_param=s_param
+                )
             axes[0].plot(
                 bucket_lefts,
                 best_wd_ratios,
@@ -247,10 +251,6 @@ def plotting(
             )
             axes[0].set_ylabel("Width-Depth\nRatio")
             axes[0].grid(True)
-            if not loo and x_axis_col == "FLOPs":
-                plot_industrial(
-                    axes[0], "wd_ratio", plt, no_qwen=False, s_param=s_param
-                )
 
         axes[1].plot(
             bucket_lefts,
@@ -261,6 +261,7 @@ def plotting(
             label=label,
             markersize=markersize,
         )
+        plot_industrial(axes[1], "tokens/param", plt, no_qwen=False, s_param=s_param)
         axes[1].set_ylabel("Tokens/Param")
         axes[1].grid(True)
 
@@ -539,6 +540,7 @@ def main():
         num_buckets=num_buckets,
         min_val=min_val,
         max_val=max_val,
+        label="Approach 3 (Ours)",
         save_postfix=f"{save_postfix}_wd",
         add_our_data=law_name,
         relaxed=args.relaxed,
@@ -554,7 +556,7 @@ def main():
         min_val=min_val,
         max_val=max_val,
         no_wd_ratio=True,
-        label="Approach 3 Brute Force",
+        label="Approach 3 (Ours)",
         save_postfix=f"{save_postfix}_params",
         relaxed=args.relaxed,
         wd_law=wd_law,
@@ -606,6 +608,8 @@ def main():
         bbox_to_anchor=(0.5, 0.0),  # Change to (0.5, 1.05) for top placement
         ncol=4,  # Number of columns for the legend
     )
+    print(ax_2[0].get_legend_handles_labels())
+    print(ax_2[1].get_legend_handles_labels())
     unique = OrderedDict(
         (l, h)
         for h, l in (

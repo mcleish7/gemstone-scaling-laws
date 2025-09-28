@@ -15,6 +15,7 @@ from plotting_utils import (
 import_times_new_roman(matplotlib.font_manager, plt, font_size=18)
 
 # %%
+slope_store = {}
 # We'll read the approach 1 lines from these:
 temps = {
     "hot": "<=100b Tokens",
@@ -179,6 +180,12 @@ for i, line_info in enumerate(all_lines_sorted):
             color_arg=color,
             line_style_arg=line_info["line_style"],
         )
+        # slope_store[line_info["label"]] = line_info["alpha"] / (
+        #     line_info["alpha"] + line_info["beta"]
+        # )
+        slope_store[line_info["label"]] = line_info["beta"] / (
+            line_info["alpha"] + line_info["beta"]
+        )
     else:
         # It's an "approach1" line with a regression slope/intercept
         coef = line_info["coef"]  # e.g., [slope]
@@ -191,6 +198,7 @@ for i, line_info in enumerate(all_lines_sorted):
             color=color,
             linestyle=line_info["line_style"],
         )
+        slope_store[line_info["label"]] = coef[0]
 
 names = ["Chinchilla-epochai-reported", "Kaplan"]
 plot_others(names, ax, flops_xs, y_axis)
@@ -219,3 +227,143 @@ fig.subplots_adjust(bottom=0.2)
 fig.savefig("../figures/rainbow.pdf", bbox_inches="tight")
 
 # %%
+import pandas as pd
+
+
+def df_cols(toks="all", cool="n", lr="n", embs="y", not_base="n"):
+    return {
+        "Tokens": toks,
+        "Cooldown": r"\cmark" if cool == "y" else r"\xmark",
+        "LR Ablation": r"\cmark" if lr == "y" else r"\xmark",
+        "Embeddings": r"\cmark" if embs == "y" else r"\xmark",
+        "Not Base": r"\cmark" if not_base == "y" else r"\xmark",
+    }
+
+
+names_to_props = {
+    "Approach 1 All Tokens No Embeds": df_cols(embs="n"),
+    "Approach 1 <=100b Tokens No Embeds": df_cols(toks="$\le 100b$", embs="n"),
+    "Approach 1 >120b Tokens Only\nNo Embeds": df_cols(embs="n", toks="$>120b$"),
+    "Approach 1 LR Ablation No Embeds": df_cols(lr="y", embs="n"),
+    "Approach 1 Cooldown No Embeds": df_cols(cool="y", embs="n"),
+    "Approach 1 All Tokens": df_cols(),
+    "Approach 1 <=100b Tokens": df_cols(toks="$\le 100b$"),
+    "Approach 1 >120b Tokens Only": df_cols(toks="$>120b$"),
+    "Approach 1 LR Ablation": df_cols(lr="y"),
+    "Approach 1 Cooldown": df_cols(cool="y"),
+    #
+    "All Tokens No Embeds": df_cols(embs="n"),
+    "<=100b Tokens No Embeds": df_cols(toks="$\le 100b$", embs="n"),
+    ">120b Tokens Only No Embeds": df_cols(embs="n", toks="$>120b$"),
+    "LR Ablation No Embeds": df_cols(lr="y", embs="n"),
+    "Cooldown No Embeds": df_cols(cool="y", embs="n"),
+    "All Tokens": df_cols(),
+    "<=100b Tokens": df_cols(toks="$\le 100b$"),
+    ">120b Tokens Only": df_cols(toks="$>120b$"),
+    "LR Ablation": df_cols(lr="y"),
+    "Cooldown": df_cols(cool="y"),
+    #
+    "LR Ablation Chinchilla\nReduced Sampling (Our Data)": df_cols(
+        lr="y", not_base="y"
+    ),
+    "Chinchilla Reduced Sampling\n(Hoffman et al. data)": df_cols(not_base="y"),
+    "Chinchilla Reduced Sampling (Our Data)": df_cols(not_base="y"),
+    #
+    "All Tokens, width=512 Only": df_cols(not_base="y"),
+}
+print(names_to_props)
+print(slope_store)
+keys_1 = set(names_to_props.keys())
+keys_2 = set(slope_store.keys())
+
+if keys_1 != keys_2:
+    missing_in_props = keys_2 - keys_1
+    missing_in_slopes = keys_1 - keys_2
+    raise ValueError(
+        f"Key mismatch:\nMissing in names_to_props: {missing_in_props}\nMissing in slope_store: {missing_in_slopes}"
+    )
+
+# Convert names_to_props to a DataFrame
+props_df = pd.DataFrame.from_dict(names_to_props, orient="index")
+
+# Convert slope_store to a Series
+slope_series = pd.Series(slope_store, name="Slope")
+
+# Join on the index (the shared keys)
+joined_df = props_df.join(slope_series)
+print(joined_df)
+cols = ["Slope"] + [col for col in joined_df.columns if col != "Slope"]
+joined_df = joined_df[cols]
+# df = pd.DataFrame(list(slope_store.items()), columns=["Configuration", "Slope"])
+
+
+def get_base_mask(df, emb_val, is_approach1):
+    return (
+        (df["Tokens"] == "all")
+        & (df["Cooldown"] == r"\xmark")
+        & (df["LR Ablation"] == r"\xmark")
+        & (df["Embeddings"] == emb_val)
+        & (df["is_approach1"] == is_approach1)
+    )
+
+
+def compute_diff_column(df):
+    df = df.copy()
+
+    # Add a helper column to track which rows are "Approach 1"
+    df["is_approach1"] = df.index.str.startswith("Approach 1")
+
+    base_slopes = {}
+    # Generate all unique combos of Embeddings × Approach1 flag
+    for emb_val in df["Embeddings"].unique():
+        for is_app1 in [True, False]:
+            key = (emb_val, is_app1)
+            base_mask = get_base_mask(df, emb_val, is_app1)
+            base_rows = df[base_mask]
+            base_rows = base_rows[base_rows["Not Base"] == r"\xmark"]
+            if base_rows.empty:
+                raise ValueError(
+                    f"No base row found for Embeddings = {emb_val}, Approach1 = {is_app1}"
+                )
+            if len(base_rows) > 1:
+                print(base_rows)
+                raise ValueError(
+                    f"Multiple base rows found for Embeddings = {emb_val}, Approach1 = {is_app1}"
+                )
+            base_slopes[key] = base_rows["Slope"].values[0]
+
+    # Compute diffs
+    df["diff"] = df.apply(
+        lambda row: row["Slope"]
+        - base_slopes[(row["Embeddings"], row["is_approach1"])],
+        axis=1,
+    )
+
+    # Optional: drop helper column
+    df = df.drop(columns=["is_approach1"])
+    return df
+
+
+# Apply it
+joined_df_with_diff = compute_diff_column(joined_df)
+
+
+def color_diff(val):
+    if abs(val) > 0.1:
+        return r"\textcolor{red}{%.4f}" % val
+    elif abs(val) > 0.05:
+        return r"\textcolor{orange}{%.4f}" % val
+    else:
+        return "%.4f" % val
+
+
+joined_df_with_diff["Delta"] = joined_df_with_diff["diff"].apply(color_diff)
+joined_df_with_diff.drop(["Not Base", "diff"], axis=1, inplace=True)
+joined_df_with_diff = joined_df_with_diff[
+    ["Tokens", "Cooldown", "LR Ablation", "Embeddings", "Slope", "Delta"]
+]
+latex_table = joined_df_with_diff.to_latex(index=False, float_format="%.4f")
+print(latex_table)
+
+# %%
+""

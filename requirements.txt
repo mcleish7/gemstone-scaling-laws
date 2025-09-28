@@ -14,6 +14,9 @@ wandb
 pdflatex
 seaborn
 
+# evals
+lighteval==0.8.1
+
 swifter==1.4.0
 adjustText
 transformers==4.48.1
